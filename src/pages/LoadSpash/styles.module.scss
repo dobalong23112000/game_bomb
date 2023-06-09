@@ -1,0 +1,14 @@
+.Loader {
+    z-index: 1002;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: var(--window-height);
+    top: 0px;
+    left: 0px;
+    background-image: linear-gradient(#6D1649, #C04849);
+    opacity: 1;
+    cursor: wait;
+    position: fixed;
+}

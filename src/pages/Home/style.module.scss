@@ -1,0 +1,12 @@
+.wrapper {
+  background-image: url("../../assets/images/background_home.png");
+  background-repeat: no-repeat;
+  background-size: 100% 926px;
+  width: 100vw;
+  height: auto;
+  min-height: var(--window-height);
+  background-color: #bf464b;
+
+  overflow: auto;
+  overflow-x: hidden;
+}

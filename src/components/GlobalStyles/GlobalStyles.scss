@@ -1,0 +1,366 @@
+@import "normalize.css";
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+}
+
+.container {
+  background-repeat: no-repeat;
+  background-color: #ffe8e8;
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 168px;
+  flex-direction: column;
+}
+
+.content {
+  min-height: 592px;
+  width: 367px;
+  background-blend-mode: overlay;
+  background: linear-gradient(120deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 20px;
+  padding-bottom: 30px;
+}
+.SmallCard {
+  .modal-content {
+    width: 70%;
+    margin: auto;
+    background-color: rgba(200, 182, 255, 1);
+    // text-align: center;
+    // padding:40px 50px;
+    border-radius: 20px;
+  }
+}
+
+.icon_save {
+  position: absolute;
+  top: 45px;
+  right: 20px;
+}
+
+.text-error {
+  color: #df0707;
+  font-size: 8px;
+  line-height: 11px;
+  font-weight: 600;
+}
+
+.input-error {
+  border: 1px solid #df0707 !important;
+}
+
+.button_submit {
+  width: 129px;
+  height: 56px;
+  border-radius: 45px;
+  font-size: 20px;
+  line-height: 27px;
+  font-weight: 900;
+  color: white;
+  padding-left: 18px;
+  padding-right: 18px;
+  background-color: rgba(255, 177, 177, 1);
+  border: 0px;
+}
+.text-header {
+  position: absolute;
+  top: 120px;
+  font-size: 20px;
+  line-height: 28px;
+  color: white;
+  font-weight: 900;
+}
+
+.form-control:focus {
+  color: #872649;
+  border: 0px;
+  outline: 0;
+  box-shadow: none;
+}
+
+.form-control {
+  padding-left: 37px;
+  padding-right: 37px;
+  font-weight: 900;
+  outline: none;
+  font-size: 15px;
+  line-height: 20px;
+  box-sizing: border-box;
+  width: 272px;
+  height: 56px;
+  background-color: white;
+  border-radius: 30px;
+  border: 0px;
+  color: #872649;
+}
+
+.form-control::placeholder {
+  color: #872649;
+}
+
+.register-input {
+  background-color: rgba(255, 177, 177, 1);
+  color: #872649;
+}
+
+.register-input::placeholder {
+  color: #872649 !important;
+}
+
+.register-input:focus {
+  color: #872649;
+  border: 0px;
+  outline: 0;
+  box-shadow: none;
+}
+
+.file-input-label {
+  position: relative;
+}
+
+.file-input-label .placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: rgba(87, 71, 188, 1);
+  background-color: #fce4e4;
+  height: 56px;
+  box-shadow: 0px -1px 0px 0px white;
+  border-radius: 30px;
+  border: 1px solid #fcfcfc;
+  padding-left: 37px;
+  padding-right: 19px;
+  display: flex;
+  align-items: center;
+  font-weight: 900;
+}
+
+.swal2-styled.swal2-default-outline:focus {
+  box-shadow: none !important;
+}
+
+//Animation
+.active-text-register {
+  animation: text-register-active 0.6s ease-in-out;
+  animation-fill-mode: forwards;
+  position: absolute;
+  bottom: 3vh;
+}
+
+@keyframes text-register-active {
+  from {
+    bottom: 3vh;
+  }
+
+  to {
+    bottom: calc(var(--window-height) - 25vh);
+  }
+}
+
+.nonactive-text-register {
+  animation: text-register-nonactive 0.6s ease-in-out;
+  animation-fill-mode: forwards;
+  position: absolute;
+  bottom: calc(var(--window-height) - 25vh);
+}
+
+@keyframes text-register-nonactive {
+  0% {
+    bottom: calc(var(--window-height) - 25vh);
+  }
+
+  100% {
+    bottom: 3vh;
+  }
+}
+
+.active-footer {
+  animation: footer-active 0.6s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes footer-active {
+  0% {
+    height: 208px;
+    bottom: -104px;
+  }
+
+  100% {
+    height: 725px;
+    bottom: -131px;
+  }
+}
+
+.nonactive-footer {
+  animation: footer-nonactive 0.6s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes footer-nonactive {
+  0% {
+    height: 725px;
+    bottom: -131px;
+  }
+
+  100% {
+    height: 208px;
+    bottom: -104px;
+  }
+}
+
+.active-text-login {
+  position: absolute;
+  animation: text-login-active 0.6s ease-in-out;
+  animation-fill-mode: forwards;
+  color: white;
+  top: 15vh;
+}
+
+@keyframes text-login-active {
+  from {
+    top: 3vh;
+    color: white;
+  }
+
+  to {
+    top: 15vh;
+    color: white;
+  }
+}
+
+.nonactive-text-login {
+  top: 125px;
+  font-size: 30px;
+  line-height: 40px;
+  position: absolute;
+  animation: text-login-nonactive 0.6s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes text-login-nonactive {
+  from {
+    top: 15vh;
+  }
+
+  to {
+    top: 3vh;
+  }
+}
+
+.active-form-login {
+  top: 80px;
+  width: 428px;
+  height: 802px;
+  border-radius: 100px;
+  // background-color: rgb(255, 255, 255, 0.4);
+  // box-shadow: 0px -1px 0px 0px white;
+  animation: form-login-active 0.6s ease-in-out;
+  animation-fill-mode: forwards;
+  position: absolute;
+}
+
+@keyframes form-login-active {
+  from {
+    width: 428px;
+    height: 802px;
+    border-radius: 100px;
+  }
+
+  to {
+    width: 342px;
+    height: 496px;
+    top: 80px;
+    border-radius: 20px;
+  }
+}
+
+.login_background {
+  background-image: linear-gradient(#6d1649, #c04849);
+  animation: active_background_login 0.6s ease-in-out;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation-fill-mode: forwards;
+}
+
+@keyframes active_background_login {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.register_background {
+  background-image: linear-gradient(#6d1649, #c04849);
+  animation: active_background_register 0.6s ease-in-out;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation-fill-mode: forwards;
+}
+
+@keyframes active_background_register {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.active-form {
+  animation: form_active 0.6s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes form_active {
+  to {
+    opacity: 0;
+  }
+
+  from {
+    opacity: 1;
+  }
+}
+
+.nonactive-form {
+  animation: form_nonactive 0.6s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes form_nonactive {
+  to {
+    opacity: 1;
+  }
+
+  from {
+    opacity: 0;
+  }
+}
