@@ -10,3 +10,49 @@
   overflow: auto;
   overflow-x: hidden;
 }
+.logo_liam {
+  bottom: 113px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+.wrap_logout {
+  margin: 20px 25px;
+  color: rgba(163, 60, 60, 1);
+  font-family: "Montserrat";
+}
+.button_logout {
+  width: 106px;
+  height: 53px;
+  background-color: #781d48;
+  border-radius: 20px;
+  border: none;
+  box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.text_logout {
+  color: white;
+  font-size: 20px;
+  line-height: 24px;
+  font-family: "Montserrat";
+  font-weight: 700;
+}
+.button_next {
+  background-color: #781d48;
+  border-radius: 20px;
+  border: none;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 14px 39px;
+  box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.small_card {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05));
+  width: 175px;
+  height: 175px;
+  border-radius: 25px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.text-card {
+  color: white;
+}
