@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import style from "./style.module.scss";
 
 import "swiper/css";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { AuthContext } from "contexts/AuthContext";
 import LogoutIcon from "components/Icons/LogoutIcon";
 import logo_game from "assets/images/logo_game.png";
@@ -11,15 +11,20 @@ import logo_liam from "assets/images/logo_liam.png";
 import { Button, Modal, ModalBody } from "reactstrap";
 import male from "assets/images/male.png";
 import female from "assets/images/female.png";
+import ReloadIcon from "components/Icons/ReloadIcon";
+import ModalPlayer from "components/Modals/ModalPlayer";
 const cx = classNames.bind(style);
 
 const Home = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { logoutUser } = useContext(AuthContext);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenModalPlayer, setIsOpenModalPlayer] = useState(false)
   const toggle = () => setIsOpenModal(!isOpenModal);
-
+  const handleOpenModalPlayer = () => {
+    setIsOpenModalPlayer(true)
+  }
   return (
     <div className={cx("wrapper")}>
       <div>
@@ -43,13 +48,21 @@ const Home = () => {
       </div>
       <div>
         <div className="d-flex align-items-center justify-content-evenly">
-          <div className={cx("small_card","d-flex flex-column align-items-center justify-content-evenly")}>
+          <div className={cx("small_card", "d-flex flex-column align-items-center justify-content-evenly")}>
+            <div className="w-100 text-align-start ms-5" onClick={handleOpenModalPlayer}>
+              <ReloadIcon />
+
+            </div>
             <div>
               <img src={female} alt="" width={"57px"} height={"57px"} />
             </div>
             <div className={cx("text-card")}>BunnieBlue</div>
           </div>
-          <div className={cx("small_card","d-flex flex-column align-items-center justify-content-evenly")}>
+          <div className={cx("small_card", "d-flex flex-column align-items-center justify-content-evenly")}>
+            <div className="w-100 text-align-start ms-5" onClick={handleOpenModalPlayer}>
+              <ReloadIcon />
+
+            </div>
             <div>
               <img src={male} alt="" width={"57px"} height={"57px"} />
             </div>
@@ -100,6 +113,7 @@ const Home = () => {
           </div>
         </ModalBody>
       </Modal>
+      <ModalPlayer isOpenModal={isOpenModalPlayer} setIsOpenModal={setIsOpenModalPlayer} />
     </div>
   );
 };
