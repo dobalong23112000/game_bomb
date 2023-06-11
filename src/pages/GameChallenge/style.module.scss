@@ -1,0 +1,60 @@
+.wrapper {
+    background-image: url("../../assets/images/background_home.png");
+    background-repeat: no-repeat;
+    background-size: 100% 926px;
+    width: 100vw;
+    height: auto;
+    min-height: var(--window-height);
+    background-color: #bf464b;
+    overflow: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .logo_liam {
+    position: relative;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    margin-left: 30px;
+  }
+  .wrap_logout {
+    margin: 45px 25px;
+    color: rgba(255, 136, 135, 1);
+    font-family: "Montserrat";
+  }
+  .button_logout {
+    width: 106px;
+    height: 53px;
+    background-color: #781d48;
+    border-radius: 20px;
+    border: none;
+    box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+  .text_logout {
+    color: white;
+    font-size: 20px;
+    line-height: 24px;
+    font-family: "Montserrat";
+    font-weight: 700;
+  }
+
+  .game_challenge {
+    background-image: url("../../assets/images/game_select_1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 372px;
+    height: 174px;
+    background-position: center;
+  }
+  .game_bomb {
+    background-image: url("../../assets/images/game_select_2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 372px;
+    height: 174px;
+    background-position: center;
+    margin-top: 20px;
+    float: right;
+  }

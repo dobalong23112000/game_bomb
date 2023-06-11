@@ -47,6 +47,17 @@ body {
     border-radius: 20px;
     backdrop-filter: blur(5px);
   }
+  .form-control {
+    color: white;
+    background-color: #781D48;
+    font-weight: 700;
+  }
+  .form-control::placeholder {
+    color: white;
+  }
+  .form-control:focus {
+    color: white;
+  }
 }
 
 .icon_save {

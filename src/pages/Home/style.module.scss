@@ -6,9 +6,11 @@
   height: auto;
   min-height: var(--window-height);
   background-color: #bf464b;
-
   overflow: auto;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .logo_liam {
   bottom: 10px;

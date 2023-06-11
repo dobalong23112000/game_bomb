@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import style from "./style.module.scss";
 
 import "swiper/css";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "contexts/AuthContext";
 import LogoutIcon from "components/Icons/LogoutIcon";
 import logo_game from "assets/images/logo_game.png";
@@ -16,7 +16,7 @@ import ModalPlayer from "components/Modals/ModalPlayer";
 const cx = classNames.bind(style);
 
 const Home = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { logoutUser } = useContext(AuthContext);
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -70,10 +70,13 @@ const Home = () => {
           </div>
         </div>
         <div className="text-center mt-5">
-          <Button className={cx("button_next")}>Tiếp theo</Button>
+          <Button className={cx("button_next")} onClick={(e)=>{
+            console.log("Aaaaaaa")
+            navigate('/select-game')
+          }}>Tiếp theo</Button>
         </div>
       </div>
-      <div className={cx("logo_liam", "position-absolute")}>
+      <div className={cx("logo_liam")}>
         <img src={logo_liam} alt="logo_liam" height={"71px"} width={"71px"} />
       </div>
 
