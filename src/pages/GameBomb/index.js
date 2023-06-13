@@ -86,6 +86,9 @@ const GameBomb = () => {
           height={"200px"}
           width={"200px"}
           style={{ position: "absolute", top: "-120px", right: 0, zIndex: 10 }}
+          onClick={()=>{
+            navigate('/ingame-bomb')
+          }}
         />
       </div>
     </div>

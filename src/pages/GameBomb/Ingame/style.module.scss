@@ -1,0 +1,157 @@
+.wrapper {
+  background-image: url("../../../assets/images/background_home.png");
+  background-repeat: no-repeat;
+  background-size: 100% 926px;
+  width: 100vw;
+  height: auto;
+  min-height: var(--window-height);
+  background-color: #bf464b;
+  overflow: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.logo_liam {
+  position: relative;
+  margin-top: 100px;
+  text-align: center;
+}
+.wrap_logout {
+  margin: 45px 25px;
+  color: rgba(255, 136, 135, 1);
+  font-family: "Montserrat";
+}
+.button_logout {
+  width: 106px;
+  height: 53px;
+  background-color: #781d48;
+  border-radius: 20px;
+  border: none;
+  box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.text_logout {
+  color: white;
+  font-size: 20px;
+  line-height: 24px;
+  font-family: "Montserrat";
+  font-weight: 700;
+}
+.bomb {
+  position: relative;
+  margin-top: 30px;
+}
+.bg_bomb {
+  width: 273px;
+  height: 273px;
+  border-radius: 50%;
+  background-color: rgba(247, 129, 92, 0.8);
+  filter: blur(25px);
+}
+
+.name {
+  color: rgba(223, 122, 123, 1);
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin-top: 40px;
+}
+.content {
+  font-size: 20px;
+  line-height: 27px;
+  font-weight: 300;
+  color: white;
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 0 50px;
+  margin-top: 30px;
+
+}
+.wrap_content {
+  position: relative;
+  padding: 40px 0px;
+}
+.bg_wrap_content {
+  background-color: rgba(73, 0, 73, 0.7);
+  width: 412px;
+  height: 208px;
+  filter: blur(25px);
+  border-radius: 50%;
+  position: relative;
+}
+.render_question {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+  
+}
+
+// keyframes
+
+.img_bomb {
+  position: absolute;
+  top: -100px;
+  left: -15px;
+  animation: bomb_beat 2s ease-in-out infinite;
+  opacity: 1
+}
+.img_fire_bomb {
+  position: absolute;
+  top: 0;
+  left: -63px;
+  opacity: 0;
+}
+@keyframes bomb_beat {
+  0% {
+    transform: scale(1, 1);
+  }
+  30% {
+    transform: scale(1.1, 1.1);
+  }
+  50% {
+    transform: rotate(-0.1turn);
+  }
+  70% {
+    transform: rotate(0turn);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+.explode {
+    animation: explode_bomb .5s ease-in-out;
+    animation-fill-mode: forwards;
+}
+@keyframes explode_bomb {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+.hidden_bomb {
+  animation: bomb_hidden .5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+@keyframes bomb_hidden {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
