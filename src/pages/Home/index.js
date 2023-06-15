@@ -51,7 +51,6 @@ const Home = () => {
           <div className={cx("small_card", "d-flex flex-column align-items-center justify-content-evenly")}>
             <div className="w-100 text-align-start ms-5" onClick={handleOpenModalPlayer}>
               <ReloadIcon />
-
             </div>
             <div>
               <img src={female} alt="" width={"57px"} height={"57px"} />
@@ -61,7 +60,6 @@ const Home = () => {
           <div className={cx("small_card", "d-flex flex-column align-items-center justify-content-evenly")}>
             <div className="w-100 text-align-start ms-5" onClick={handleOpenModalPlayer}>
               <ReloadIcon />
-
             </div>
             <div>
               <img src={male} alt="" width={"57px"} height={"57px"} />
@@ -71,7 +69,6 @@ const Home = () => {
         </div>
         <div className="text-center mt-5">
           <Button className={cx("button_next")} onClick={(e)=>{
-            console.log("Aaaaaaa")
             navigate('/select-game')
           }}>Tiếp theo</Button>
         </div>

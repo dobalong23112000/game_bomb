@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import classNames from "classnames/bind";
 import style from "./style.module.scss";
 import logo_liam from "assets/images/logo_liam.png";
@@ -13,10 +13,23 @@ import tips_card from "assets/images/tips_card.png";
 
 import GameIcon from "components/Icons/GameIcon";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "reactstrap";
+//
+import TipsGame from "assets/images/tips_game_challenge.png";
+import SuggestGame from "assets/images/suggest_game_challenge.png";
+import WhoGame from "assets/images/who_game_challenge.png";
+import HelpGame from "assets/images/help_game_challenge.png";
 
 const cx = classNames.bind(style);
 const GameBomb = () => {
-    const navigate =useNavigate()
+  const navigate = useNavigate();
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+  const [activeCard, setActiveCard] = useState(1);
+  const handleOpenModal = (item) => {
+    setModal(true);
+    setActiveCard(item);
+  };
   return (
     <div className={cx("wrapper")}>
       <div className="d-flex justify-content-between">
@@ -29,9 +42,11 @@ const GameBomb = () => {
           />
         </div>
         <div className="d-flex justify-content-end  me-3 mt-4">
-          <span onClick={() => {
-            navigate('/select-game')
-          }}>
+          <span
+            onClick={() => {
+              navigate("/select-game");
+            }}
+          >
             <GameIcon />
           </span>
         </div>
@@ -41,37 +56,57 @@ const GameBomb = () => {
         style={{ height: "536px" }}
       >
         <div style={{ marginTop: "70px" }}>
-          <div className="mb-3">
+          <div
+            className="mb-3"
+            onClick={() => {
+              handleOpenModal(1);
+            }}
+          >
             <img
               src={help_card}
-              alt="logo_game"
+              alt="help_card"
               height={"205px"}
               width={"174px"}
             />
           </div>
-          <div className="mb-3">
+          <div
+            className="mb-3"
+            onClick={() => {
+              handleOpenModal(2);
+            }}
+          >
             <img
               src={who_card}
-              alt="logo_game"
+              alt="who_card"
               height={"205px"}
               width={"174px"}
             />
           </div>
         </div>
         <div>
-          <div className="mb-3">
+          <div
+            className="mb-3"
+            onClick={() => {
+              handleOpenModal(3);
+            }}
+          >
             {" "}
             <img
               src={suggest_card}
-              alt="logo_game"
+              alt="suggest_card"
               height={"205px"}
               width={"174px"}
             />
           </div>
-          <div className="mb-3">
+          <div
+            className="mb-3"
+            onClick={() => {
+              handleOpenModal(4);
+            }}
+          >
             <img
               src={tips_card}
-              alt="logo_game"
+              alt="tips_card"
               height={"205px"}
               width={"174px"}
             />
@@ -86,11 +121,26 @@ const GameBomb = () => {
           height={"200px"}
           width={"200px"}
           style={{ position: "absolute", top: "-120px", right: 0, zIndex: 10 }}
-          onClick={()=>{
-            navigate('/ingame-bomb')
+          onClick={() => {
+            navigate("/ingame-bomb");
           }}
         />
       </div>
+      <Modal centered isOpen={modal} toggle={toggle} className="cardGame">
+        {activeCard === 4 && (
+          <img src={TipsGame} alt="" width={"373px"} height={"439px"}></img>
+        )}
+        {activeCard === 1 && (
+          <img src={HelpGame} alt="" width={"373px"} height={"439px"}></img>
+        )}
+
+        {activeCard === 3 && (
+          <img src={SuggestGame} alt="" width={"373px"} height={"439px"}></img>
+        )}
+        {activeCard === 2 && (
+          <img src={WhoGame} alt="" width={"373px"} height={"439px"}></img>
+        )}
+      </Modal>
     </div>
   );
 };

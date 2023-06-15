@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import classNames from "classnames/bind";
 import style from "./style.module.scss";
 import logo_liam from "assets/images/logo_liam.png";
@@ -14,9 +14,22 @@ import tips_card from "assets/images/tips_card.png";
 import GameIcon from "components/Icons/GameIcon";
 import { useNavigate } from "react-router-dom";
 
+//
+import TipsGame from "assets/images/tips_game_bomb.png";
+import SuggestGame from "assets/images/suggest_game_bomb.png";
+import WhoGame from "assets/images/who_game_bomb.png";
+import HelpGame from "assets/images/help_game_bomb.png";
+import { Modal } from "reactstrap";
 const cx = classNames.bind(style);
 const GameChallenge = () => {
-  const navigate =useNavigate()
+  const navigate = useNavigate();
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+  const [activeCard, setActiveCard] = useState(1);
+  const handleOpenModal = (item) => {
+    setModal(true);
+    setActiveCard(item);
+  };
   return (
     <div className={cx("wrapper")}>
       <div className="d-flex justify-content-between">
@@ -29,9 +42,11 @@ const GameChallenge = () => {
           />
         </div>
         <div className="d-flex justify-content-end  me-3 mt-4">
-          <span onClick={() => {
-            navigate('/select-game')
-          }}>
+          <span
+            onClick={() => {
+              navigate("/select-game");
+            }}
+          >
             <GameIcon />
           </span>
         </div>
@@ -41,7 +56,12 @@ const GameChallenge = () => {
         style={{ height: "536px" }}
       >
         <div style={{ marginTop: "70px" }}>
-          <div className="mb-3">
+          <div
+            className="mb-3"
+            onClick={() => {
+              handleOpenModal(1);
+            }}
+          >
             <img
               src={help_card}
               alt="logo_game"
@@ -49,7 +69,12 @@ const GameChallenge = () => {
               width={"174px"}
             />
           </div>
-          <div className="mb-3">
+          <div
+            className="mb-3"
+            onClick={() => {
+              handleOpenModal(2);
+            }}
+          >
             <img
               src={who_card}
               alt="logo_game"
@@ -59,7 +84,12 @@ const GameChallenge = () => {
           </div>
         </div>
         <div>
-          <div className="mb-3">
+          <div
+            className="mb-3"
+            onClick={() => {
+              handleOpenModal(3);
+            }}
+          >
             {" "}
             <img
               src={suggest_card}
@@ -68,7 +98,12 @@ const GameChallenge = () => {
               width={"174px"}
             />
           </div>
-          <div className="mb-3">
+          <div
+            className="mb-3"
+            onClick={() => {
+              handleOpenModal(4);
+            }}
+          >
             <img
               src={tips_card}
               alt="logo_game"
@@ -86,8 +121,26 @@ const GameChallenge = () => {
           height={"200px"}
           width={"200px"}
           style={{ position: "absolute", top: "-120px", right: 0, zIndex: 10 }}
+          onClick={() => {
+            navigate("/ingame-challenge");
+          }}
         />
       </div>
+      <Modal centered isOpen={modal} toggle={toggle} className="cardGame">
+        {activeCard === 4 && (
+          <img src={TipsGame} alt="" width={"373px"} height={"439px"}></img>
+        )}
+        {activeCard === 1 && (
+          <img src={HelpGame} alt="" width={"373px"} height={"439px"}></img>
+        )}
+
+        {activeCard === 3 && (
+          <img src={SuggestGame} alt="" width={"373px"} height={"439px"}></img>
+        )}
+        {activeCard === 2 && (
+          <img src={WhoGame} alt="" width={"373px"} height={"439px"}></img>
+        )}
+      </Modal>
     </div>
   );
 };

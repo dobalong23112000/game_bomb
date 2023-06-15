@@ -1,6 +1,8 @@
 import Auth from "pages/Auth";
 import GameBomb from "pages/GameBomb";
 import Ingame from "pages/GameBomb/Ingame";
+import IngameChallenge  from "pages/GameChallenge/IngameChallenge";
+
 import GameChallenge from "pages/GameChallenge";
 import Home from "pages/Home";
 
@@ -17,6 +19,8 @@ const privateRoutes = [
   { path: `/game-bomb`, component: GameBomb, layout: null },
   { path: `/game-challenge`, component: GameChallenge, layout: null },
   { path: `/ingame-bomb`, component: Ingame, layout: null },
+  { path: `/ingame-challenge`, component: IngameChallenge, layout: null },
+
 
 ];
 export { publicRoutes, privateRoutes };
