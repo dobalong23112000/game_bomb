@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames/bind";
 import style from "./style.module.scss";
-import { Button, FormGroup, Input, Label, Modal, ModalBody } from "reactstrap";
+import { Input, Modal, ModalBody } from "reactstrap";
 import HeartIcon from "components/Icons/HeartIcon";
 import male from "assets/images/male.png";
 import female from "assets/images/female.png";
@@ -53,7 +53,43 @@ const ModalPlayer = ({ isOpenModal, setIsOpenModal }) => {
               <Input placeholder="Tên người chơi"></Input>
             </div>
             <div className="mt-3">
-              <Select options={options} isSearchable={false}/>
+              <Select
+                placeholder="Giới tính"
+                className="basic-single"
+                classNamePrefix="select"
+                defaultValue={options[0]}
+                options={options}
+                isSearchable={false}
+                name="select1"
+                styles={{
+                  control: (defaultStyles) => ({
+                    ...defaultStyles,
+                    height: "56px",
+                    borderRadius: "40px",
+                    fontWeight: 700,
+                    color: "white",
+                    border: 0,
+                    backgroundColor: "#781D48",
+                    boxShadow: "none",
+                    paddingLeft: "20px",
+                  }),
+                  menu: (defaultStyles) => ({
+                    ...defaultStyles,
+                    fontWeight: 700,
+                    color: "white",
+                    border: 0,
+                    backgroundColor: "#781D48",
+                  }),
+                  singleValue: (defaultStyles) => ({
+                    ...defaultStyles,
+                    fontWeight: 700,
+                    color: "white",
+                  }),
+                }}
+                onChange={(e) => {
+                  console.log(e);
+                }}
+              />
             </div>
           </div>
           <div style={{ padding: "35px 35px 0px 35px" }}>
@@ -65,7 +101,40 @@ const ModalPlayer = ({ isOpenModal, setIsOpenModal }) => {
               <Input placeholder="Tên người chơi"></Input>
             </div>
             <div className="mt-3">
-              <Select options={options}  isSearchable={false}/>
+              <Select
+                placeholder="Giới tính"
+                className="basic-single"
+                classNamePrefix="select"
+                options={options}
+                isSearchable={false}
+                defaultValue={options[1]}
+                name="select2"
+                styles={{
+                  control: (defaultStyles) => ({
+                    ...defaultStyles,
+                    height: "56px",
+                    borderRadius: "40px",
+                    fontWeight: 700,
+                    color: "white",
+                    border: 0,
+                    backgroundColor: "#781D48",
+                    boxShadow: "none",
+                    paddingLeft: "20px",
+                  }),
+                  menu: (defaultStyles) => ({
+                    ...defaultStyles,
+                    fontWeight: 700,
+                    color: "white",
+                    border: 0,
+                    backgroundColor: "#781D48",
+                  }),
+                  singleValue: (defaultStyles) => ({
+                    ...defaultStyles,
+                    fontWeight: 700,
+                    color: "white",
+                  }),
+                }}
+              />
             </div>
           </div>
           <div style={{ padding: "35px 35px" }}>
