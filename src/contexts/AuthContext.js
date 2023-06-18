@@ -10,6 +10,12 @@ const AuthContextProvider = ({ children }) => {
     isAuthenticated: false,
     user: null,
   });
+  const [infoUser, setInfoUser] = useState({
+    name_player1: "Tên người chơi 1",
+    name_player2: "Tên người chơi 2",
+    sex_player1: "1",
+    sex_player2: "2",
+  });
   useEffect(() => {
     loadUser();
   }, []);
@@ -41,13 +47,12 @@ const AuthContextProvider = ({ children }) => {
   const loginUser = async (userForm) => {
     try {
       const response = await AuthApi.login(userForm);
-      console.log(response)
+      console.log(response);
       if (response.data.status === 200) {
         localStorage.setItem("access_token", response.data.data.accessToken);
         await loadUser();
         return response.data;
       } else {
-   
         return response.data;
       }
     } catch (e) {
@@ -71,6 +76,8 @@ const AuthContextProvider = ({ children }) => {
     logoutUser,
     loadUser,
     setAuthState,
+    infoUser,
+    setInfoUser,
   };
   return (
     <AuthContext.Provider value={authContextData}>

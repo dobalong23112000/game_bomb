@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import classNames from "classnames/bind";
 import style from "./style.module.scss";
 import { Input, Modal, ModalBody } from "reactstrap";
@@ -8,9 +8,12 @@ import female from "assets/images/female.png";
 import different from "assets/images/different.png";
 
 import Select from "react-select";
+import { AuthContext } from "contexts/AuthContext";
 const cx = classNames.bind(style);
 const ModalPlayer = ({ isOpenModal, setIsOpenModal }) => {
   const toggle = () => setIsOpenModal(!isOpenModal);
+  const { logoutUser, infoUser, setInfoUser } = useContext(AuthContext);
+  const { name_player1, name_player2, sex_player1, sex_player2 } = infoUser;
   const options = [
     {
       value: "1",
@@ -40,6 +43,13 @@ const ModalPlayer = ({ isOpenModal, setIsOpenModal }) => {
       ),
     },
   ];
+  const genDefaultSex = (sex) => {
+    const found = options.find((element) => element.value === sex);
+    return found;
+  };
+  const handleChangeInfo = (field, value) => {
+    setInfoUser({ ...infoUser, [field]: value });
+  };
   return (
     <Modal isOpen={isOpenModal} toggle={toggle} centered className="SmallCard">
       <ModalBody>
@@ -47,17 +57,25 @@ const ModalPlayer = ({ isOpenModal, setIsOpenModal }) => {
           <div style={{ padding: "35px 35px 0px 35px" }}>
             <div>
               <HeartIcon />
-              <span className={cx("text_header", "ms-2")}>NGƯỜI CHƠI 1</span>
+              <span className={cx("text_header", "ms-2")}>
+                {"NGƯỜI CHƠI 1"}
+              </span>
             </div>
             <div className="mt-3">
-              <Input placeholder="Tên người chơi"></Input>
+              <Input
+                placeholder="Tên người chơi"
+                value={name_player1}
+                onChange={(e) => {
+                  handleChangeInfo("name_player1", e.target.value);
+                }}
+              ></Input>
             </div>
             <div className="mt-3">
               <Select
                 placeholder="Giới tính"
                 className="basic-single"
                 classNamePrefix="select"
-                defaultValue={options[0]}
+                defaultValue={genDefaultSex(sex_player1)}
                 options={options}
                 isSearchable={false}
                 name="select1"
@@ -85,9 +103,13 @@ const ModalPlayer = ({ isOpenModal, setIsOpenModal }) => {
                     fontWeight: 700,
                     color: "white",
                   }),
+                  option: (provided, state) => ({
+                    ...provided,
+                    ...(state.selectProps.menuIsOpen && { backgroundColor: 'transparent' }), // Optional: Change the background color when the menu is open and the option is focused
+                  }),
                 }}
                 onChange={(e) => {
-                  console.log(e);
+                  handleChangeInfo("sex_player1", e.value);
                 }}
               />
             </div>
@@ -95,10 +117,18 @@ const ModalPlayer = ({ isOpenModal, setIsOpenModal }) => {
           <div style={{ padding: "35px 35px 0px 35px" }}>
             <div>
               <HeartIcon />
-              <span className={cx("text_header", "ms-2")}>NGƯỜI CHƠI 2</span>
+              <span className={cx("text_header", "ms-2")}>
+                {"NGƯỜI CHƠI 2"}
+              </span>
             </div>
             <div className="mt-3">
-              <Input placeholder="Tên người chơi"></Input>
+              <Input
+                placeholder="Tên người chơi"
+                value={name_player2}
+                onChange={(e) => {
+                  handleChangeInfo("name_player2", e.target.value);
+                }}
+              ></Input>
             </div>
             <div className="mt-3">
               <Select
@@ -107,7 +137,7 @@ const ModalPlayer = ({ isOpenModal, setIsOpenModal }) => {
                 classNamePrefix="select"
                 options={options}
                 isSearchable={false}
-                defaultValue={options[1]}
+                defaultValue={genDefaultSex(sex_player2)}
                 name="select2"
                 styles={{
                   control: (defaultStyles) => ({
@@ -133,11 +163,23 @@ const ModalPlayer = ({ isOpenModal, setIsOpenModal }) => {
                     fontWeight: 700,
                     color: "white",
                   }),
+                  option: (provided, state) => ({
+                    ...provided,
+                    ...(state.selectProps.menuIsOpen && { backgroundColor: 'transparent' }), // Optional: Change the background color when the menu is open and the option is focused
+                  }),
+                }}
+                onChange={(e) => {
+                  handleChangeInfo("sex_player2", e.value);
                 }}
               />
             </div>
           </div>
-          <div style={{ padding: "35px 35px" }}>
+          <div
+            style={{ padding: "35px 35px" }}
+            onClick={() => {
+              toggle();
+            }}
+          >
             <HeartIcon bigheart />
             <br />
             <span className={cx("text_save")}>LƯU</span>

@@ -11,6 +11,8 @@ import logo_liam from "assets/images/logo_liam.png";
 import { Button, Modal, ModalBody } from "reactstrap";
 import male from "assets/images/male.png";
 import female from "assets/images/female.png";
+import different from "assets/images/different.png";
+
 import ReloadIcon from "components/Icons/ReloadIcon";
 import ModalPlayer from "components/Modals/ModalPlayer";
 const cx = classNames.bind(style);
@@ -18,13 +20,24 @@ const cx = classNames.bind(style);
 const Home = () => {
   const navigate = useNavigate();
 
-  const { logoutUser } = useContext(AuthContext);
+  const { logoutUser, infoUser, setInfoUser } = useContext(AuthContext);
+  const { name_player1, name_player2, sex_player1, sex_player2 } = infoUser;
+
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [isOpenModalPlayer, setIsOpenModalPlayer] = useState(false)
+  const [isOpenModalPlayer, setIsOpenModalPlayer] = useState(false);
   const toggle = () => setIsOpenModal(!isOpenModal);
   const handleOpenModalPlayer = () => {
-    setIsOpenModalPlayer(true)
-  }
+    setIsOpenModalPlayer(true);
+  };
+  const genImgSex = (sex) => {
+    if (sex === "1") {
+      return <img src={male} alt="" width={"57px"} height={"57px"} />;
+    }
+    if (sex === "2") {
+      return <img src={female} alt="" width={"57px"} height={"57px"} />;
+    }
+    return <img src={different} alt="" width={"57px"} height={"57px"} />;
+  };
   return (
     <div className={cx("wrapper")}>
       <div>
@@ -48,29 +61,51 @@ const Home = () => {
       </div>
       <div>
         <div className="d-flex align-items-center justify-content-evenly">
-          <div className={cx("small_card", "d-flex flex-column align-items-center justify-content-evenly")}>
-            <div className="w-100 text-align-start ms-5" onClick={handleOpenModalPlayer}>
+          <div
+            className={cx(
+              "small_card",
+              "d-flex flex-column align-items-center justify-content-evenly"
+            )}
+          >
+            <div
+              className="w-100 text-align-start ms-5"
+              onClick={handleOpenModalPlayer}
+            >
               <ReloadIcon />
             </div>
             <div>
-              <img src={female} alt="" width={"57px"} height={"57px"} />
+              {/* <img src={female} alt="" width={"57px"} height={"57px"} /> */}
+              {genImgSex(sex_player1)}
             </div>
-            <div className={cx("text-card")}>BunnieBlue</div>
+            <div className={cx("text-card")}>{name_player1 || 'Tên người chơi 1'}</div>
           </div>
-          <div className={cx("small_card", "d-flex flex-column align-items-center justify-content-evenly")}>
-            <div className="w-100 text-align-start ms-5" onClick={handleOpenModalPlayer}>
+          <div
+            className={cx(
+              "small_card",
+              "d-flex flex-column align-items-center justify-content-evenly"
+            )}
+          >
+            <div
+              className="w-100 text-align-start ms-5"
+              onClick={handleOpenModalPlayer}
+            >
               <ReloadIcon />
             </div>
             <div>
-              <img src={male} alt="" width={"57px"} height={"57px"} />
+              {genImgSex(sex_player2)}
             </div>
-            <div className={cx("text-card")}>Duongthing</div>
+            <div className={cx("text-card")}>{name_player2 || 'Tên người chơi 2'}</div>
           </div>
         </div>
         <div className="text-center mt-5">
-          <Button className={cx("button_next")} onClick={(e)=>{
-            navigate('/select-game')
-          }}>Tiếp theo</Button>
+          <Button
+            className={cx("button_next")}
+            onClick={(e) => {
+              navigate("/select-game");
+            }}
+          >
+            Tiếp theo
+          </Button>
         </div>
       </div>
       <div className={cx("logo_liam")}>
@@ -113,7 +148,10 @@ const Home = () => {
           </div>
         </ModalBody>
       </Modal>
-      <ModalPlayer isOpenModal={isOpenModalPlayer} setIsOpenModal={setIsOpenModalPlayer} />
+      <ModalPlayer
+        isOpenModal={isOpenModalPlayer}
+        setIsOpenModal={setIsOpenModalPlayer}
+      />
     </div>
   );
 };
