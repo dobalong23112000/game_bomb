@@ -23,16 +23,16 @@ const Ingame = () => {
   ];
   const genNamePlaying = () => {
     return activeQuestion % 2 === 0
-      ? infoUser.name_player1
-      : infoUser.name_player2;
+      ? infoUser.name_player1 || 'Người chơi 1'
+      : infoUser.name_player2 || 'Người chơi 2';
   };
   useEffect(() => {
     if (countdown > 0) {
       const interval = setInterval(() => {
         setCountdown((prevCountdown) => prevCountdown - 1);
       }, 1000);
-      if(countdown === 1) {
-        setActiveBomb(true)
+      if (countdown === 1) {
+        setActiveBomb(true);
       }
       return () => {
         clearInterval(interval);
@@ -98,10 +98,14 @@ const Ingame = () => {
           <div
             className={cx("render_question")}
             onClick={() => {
-              setActiveQuestion(activeQuestion + 1);
+              if (activeQuestion > questions.length - 2) {
+                setActiveQuestion(0);
+              } else {
+                setActiveQuestion(activeQuestion + 1);
+              }
               if (activeBomb === true) {
                 setActiveBomb(false);
-                setCountdown(10)
+                setCountdown(10);
               }
             }}
           >

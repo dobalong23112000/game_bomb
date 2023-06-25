@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import classNames from "classnames/bind";
-import style from "./style.module.scss";
+import style from "../ModalPlayer/style.module.scss";
 import { Input, Modal, ModalBody } from "reactstrap";
 import HeartIcon from "components/Icons/HeartIcon";
 import male from "assets/images/male.png";
@@ -10,10 +10,10 @@ import different from "assets/images/different.png";
 import Select from "react-select";
 import { AuthContext } from "contexts/AuthContext";
 const cx = classNames.bind(style);
-const ModalPlayer = ({ isOpenModal, setIsOpenModal }) => {
+const ModalPlayerSecond = ({ isOpenModal, setIsOpenModal }) => {
   const toggle = () => setIsOpenModal(!isOpenModal);
-  const {  infoUser, setInfoUser } = useContext(AuthContext);
-  const { name_player1, sex_player1 } = infoUser;
+  const { infoUser, setInfoUser } = useContext(AuthContext);
+  const { name_player2, sex_player2 } = infoUser;
   const options = [
     {
       value: "1",
@@ -54,7 +54,7 @@ const ModalPlayer = ({ isOpenModal, setIsOpenModal }) => {
     <Modal isOpen={isOpenModal} toggle={toggle} centered className="SmallCard">
       <ModalBody>
         <div className="d-flex align-items-center justify-content-evenly flex-column">
-          <div style={{ padding: "35px 35px 0px 35px" }}>
+          {/* <div style={{ padding: "35px 35px 0px 35px" }}>
             <div>
               <HeartIcon />
               <span className={cx("text_header", "ms-2")}>
@@ -113,8 +113,8 @@ const ModalPlayer = ({ isOpenModal, setIsOpenModal }) => {
                 }}
               />
             </div>
-          </div>
-          {/* <div style={{ padding: "35px 35px 0px 35px" }}>
+          </div> */}
+          <div style={{ padding: "35px 35px 0px 35px" }}>
             <div>
               <HeartIcon />
               <span className={cx("text_header", "ms-2")}>
@@ -165,7 +165,9 @@ const ModalPlayer = ({ isOpenModal, setIsOpenModal }) => {
                   }),
                   option: (provided, state) => ({
                     ...provided,
-                    ...(state.selectProps.menuIsOpen && { backgroundColor: 'transparent' }), // Optional: Change the background color when the menu is open and the option is focused
+                    ...(state.selectProps.menuIsOpen && {
+                      backgroundColor: "transparent",
+                    }), // Optional: Change the background color when the menu is open and the option is focused
                   }),
                 }}
                 onChange={(e) => {
@@ -173,7 +175,7 @@ const ModalPlayer = ({ isOpenModal, setIsOpenModal }) => {
                 }}
               />
             </div>
-          </div> */}
+          </div>
           <div
             style={{ padding: "35px 35px" }}
             onClick={() => {
@@ -190,4 +192,4 @@ const ModalPlayer = ({ isOpenModal, setIsOpenModal }) => {
   );
 };
 
-export default ModalPlayer;
+export default ModalPlayerSecond;

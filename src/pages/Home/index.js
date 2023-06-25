@@ -15,19 +15,24 @@ import different from "assets/images/different.png";
 
 import ReloadIcon from "components/Icons/ReloadIcon";
 import ModalPlayer from "components/Modals/ModalPlayer";
+import ModalPlayerSecond from "components/Modals/ModalPlayerSecond";
 const cx = classNames.bind(style);
 
 const Home = () => {
   const navigate = useNavigate();
 
-  const { logoutUser, infoUser, setInfoUser } = useContext(AuthContext);
+  const { logoutUser, infoUser } = useContext(AuthContext);
   const { name_player1, name_player2, sex_player1, sex_player2 } = infoUser;
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenModalPlayer, setIsOpenModalPlayer] = useState(false);
+  const [isOpenModalPlayerSecond,setIsOpenModalPlayerSecond] = useState(false);
   const toggle = () => setIsOpenModal(!isOpenModal);
   const handleOpenModalPlayer = () => {
     setIsOpenModalPlayer(true);
+  };
+  const handleOpenModalPlayerSecond = () => {
+    setIsOpenModalPlayerSecond(true);
   };
   const genImgSex = (sex) => {
     if (sex === "1") {
@@ -87,7 +92,7 @@ const Home = () => {
           >
             <div
               className="w-100 text-align-start ms-5"
-              onClick={handleOpenModalPlayer}
+              onClick={handleOpenModalPlayerSecond}
             >
               <ReloadIcon />
             </div>
@@ -151,6 +156,10 @@ const Home = () => {
       <ModalPlayer
         isOpenModal={isOpenModalPlayer}
         setIsOpenModal={setIsOpenModalPlayer}
+      />
+       <ModalPlayerSecond
+        isOpenModal={isOpenModalPlayerSecond}
+        setIsOpenModal={setIsOpenModalPlayerSecond}
       />
     </div>
   );

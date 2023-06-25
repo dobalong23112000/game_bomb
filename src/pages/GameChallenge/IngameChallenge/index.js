@@ -65,7 +65,7 @@ const IngameChallenge = () => {
         </div>
         <div className={cx("wrap_content")}>
           <div className={cx("bg_wrap_content")}></div>
-          <div className={cx("name")}>{activeQuestion % 2 === 0 ? infoUser.name_player1 : infoUser.name_player2}</div>
+          <div className={cx("name")}>{activeQuestion % 2 === 0 ? infoUser.name_player1 || 'Người chơi 1' : infoUser.name_player2 || 'Người chơi 2'}</div>
           <div className={cx("content")}>
             {questions[activeQuestion].name}
           </div>
@@ -75,7 +75,11 @@ const IngameChallenge = () => {
             className={cx("render_question")}
             onClick={() => {
               playerRef.current.play();
-              setActiveQuestion(activeQuestion + 1);
+              if (activeQuestion > questions.length - 2) {
+                setActiveQuestion(0);
+              } else {
+                setActiveQuestion(activeQuestion + 1);
+              }
             }}
           >
             {"SKIP"}
@@ -92,6 +96,9 @@ const IngameChallenge = () => {
             onClick={() => {
               setStartGame(!startGame);
               playerRef.current.play();
+              if(countdown === 0) {
+                setCountdown(80)
+              }
             }}
           >
             {startGame ? "DONE" : "START"}

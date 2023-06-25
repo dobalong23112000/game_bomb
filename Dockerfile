@@ -8,5 +8,5 @@ RUN yarn build
 FROM nginx:1.17-alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build-deps /app/build /usr/share/nginx/html
-EXPOSE 83
+EXPOSE 85
 CMD ["nginx", "-g", "daemon off;"]

@@ -11,8 +11,8 @@ const AuthContextProvider = ({ children }) => {
     user: null,
   });
   const [infoUser, setInfoUser] = useState({
-    name_player1: "Tên người chơi 1",
-    name_player2: "Tên người chơi 2",
+    name_player1: "",
+    name_player2: "",
     sex_player1: "1",
     sex_player2: "2",
   });
