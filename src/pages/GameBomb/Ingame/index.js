@@ -3,14 +3,13 @@ import classNames from "classnames/bind";
 import style from "./style.module.scss";
 import logo_liam from "assets/images/logo_liam.png";
 import logo_game_bomb from "assets/images/logo_game_bomb.png";
-import { useNavigate } from "react-router-dom";
 import PauseIcon from "components/Icons/PauseIcon";
 import Bomb from "assets/images/bomb.png";
 import FireBomb from "assets/images/fire_bomb.png";
 import { AuthContext } from "contexts/AuthContext";
+import ModalPauseGame from "components/Modals/ModalPauseGame";
 const cx = classNames.bind(style);
 const Ingame = () => {
-  const navigate = useNavigate();
   const [activeBomb, setActiveBomb] = useState(false);
   const [countdown, setCountdown] = useState(10);
   const { infoUser } = useContext(AuthContext);
@@ -21,6 +20,8 @@ const Ingame = () => {
     { stt: 3, name: "Ấn tượng đầu tiên và ấn tượng hiện tại?" },
     { stt: 4, name: "Lý do yêu lúc ban đầu và lí do yêu ở hiện tại?" },
   ];
+  const [isOpenModalPauseGame, setIsOpenModalPauseGame] = useState(false);
+
   const genNamePlaying = () => {
     return activeQuestion % 2 === 0
       ? infoUser.name_player1 || 'Người chơi 1'
@@ -54,7 +55,7 @@ const Ingame = () => {
         <div className="d-flex justify-content-end  me-3 mt-4">
           <span
             onClick={() => {
-              navigate("/game-bomb");
+              setIsOpenModalPauseGame(true)
             }}
           >
             <PauseIcon />
@@ -116,6 +117,8 @@ const Ingame = () => {
       <div className={cx("logo_liam")}>
         <img src={logo_liam} alt="logo_liam" height={"71px"} width={"71px"} />
       </div>
+      <ModalPauseGame isOpenModal={isOpenModalPauseGame} setIsOpenModal={setIsOpenModalPauseGame} linkRedirect={'/game-bomb'}/>
+
     </div>
   );
 };
