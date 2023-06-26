@@ -10,16 +10,28 @@ import { AuthContext } from "contexts/AuthContext";
 import ModalPauseGame from "components/Modals/ModalPauseGame";
 const cx = classNames.bind(style);
 const Ingame = () => {
+  function getRandomNumber() {
+    const numbers = [10, 20, 30];
+    const randomIndex = Math.floor(Math.random() * numbers.length);
+    return numbers[randomIndex];
+  }
+  
   const [activeBomb, setActiveBomb] = useState(false);
   const [countdown, setCountdown] = useState(10);
-  const { infoUser } = useContext(AuthContext);
+  const { infoUser,authState } = useContext(AuthContext);
   const [activeQuestion, setActiveQuestion] = useState(0);
-  const questions = [
+ 
+  const [questions,setQuestions] = useState([
     { stt: 1, name: "Màu sắc đại diện cho anh và em là gì và tại sao" },
     { stt: 2, name: "Đồ vật nào làm anh hoặc em nghĩ đến nhau" },
     { stt: 3, name: "Ấn tượng đầu tiên và ấn tượng hiện tại?" },
     { stt: 4, name: "Lý do yêu lúc ban đầu và lí do yêu ở hiện tại?" },
-  ];
+  ]);
+  useEffect(()=>{
+    if(authState?.user?.sexChallenge) {
+      setQuestions(authState?.user?.sexChallenge)
+    }
+  },[authState])
   const [isOpenModalPauseGame, setIsOpenModalPauseGame] = useState(false);
 
   const genNamePlaying = () => {
@@ -106,7 +118,7 @@ const Ingame = () => {
               }
               if (activeBomb === true) {
                 setActiveBomb(false);
-                setCountdown(10);
+                setCountdown(getRandomNumber());
               }
             }}
           >

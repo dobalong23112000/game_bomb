@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
 import style from "./style.module.scss";
 import logo_liam from "assets/images/logo_liam.png";
@@ -15,17 +15,21 @@ const IngameChallenge = () => {
   const playerRef = useRef(null);
   const [startGame, setStartGame] = useState(false);
   const [countdown, setCountdown] = useState(80); //
-  const { infoUser } = useContext(AuthContext);
+  const { infoUser,authState } = useContext(AuthContext);
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [isOpenModalPauseGame, setIsOpenModalPauseGame] = useState(false);
 
-  const questions = [
+  const [questions,setQuestions] = useState([
     { stt: 1, name: "Màu sắc đại diện cho anh và em là gì và tại sao" },
     { stt: 2, name: "Đồ vật nào làm anh hoặc em nghĩ đến nhau" },
     { stt: 3, name: "Ấn tượng đầu tiên và ấn tượng hiện tại?" },
     { stt: 4, name: "Lý do yêu lúc ban đầu và lí do yêu ở hiện tại?" },
-  ];
-  
+  ]);
+  useEffect(()=>{
+    if(authState?.user?.sexChallenge) {
+      setQuestions(authState?.user?.sexChallenge)
+    }
+  },[authState])
   return (
     <div className={cx("wrapper")}>
       <div className="d-flex justify-content-between">
