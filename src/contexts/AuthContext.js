@@ -21,8 +21,8 @@ const AuthContextProvider = ({ children }) => {
   }, []);
   // Authenticate user
   const loadUser = async () => {
-    if (localStorage.getItem("access_token")) {
-      setAuthToken(localStorage.getItem("access_token"));
+    if (sessionStorage.getItem("access_token")) {
+      setAuthToken(sessionStorage.getItem("access_token"));
     }
     try {
       const response = await UserApi.getInfo();
@@ -34,7 +34,7 @@ const AuthContextProvider = ({ children }) => {
         });
       }
     } catch (e) {
-      localStorage.removeItem("access_token");
+      sessionStorage.removeItem("access_token");
       setAuthToken(null);
       setAuthState({
         authLoading: false,
@@ -49,7 +49,7 @@ const AuthContextProvider = ({ children }) => {
       const response = await AuthApi.login(userForm);
       console.log(response);
       if (response.data.status === 200) {
-        localStorage.setItem("access_token", response.data.data.accessToken);
+        sessionStorage.setItem("access_token", response.data.data.accessToken);
         await loadUser();
         return response.data;
       } else {
@@ -60,7 +60,7 @@ const AuthContextProvider = ({ children }) => {
     }
   };
   const logoutUser = async () => {
-    localStorage.removeItem("access_token");
+    sessionStorage.removeItem("access_token");
     setAuthToken(null);
     setAuthState({
       authLoading: false,

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   AiOutlineMail,
   AiFillPhone,
@@ -14,16 +14,15 @@ import { useForm } from "react-hook-form";
 import AuthApi from "api/AuthApi";
 import Swal from "sweetalert2";
 import { AuthContext } from "contexts/AuthContext";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Loader from "components/Loading/Loader/Loader";
 import GetMessageValidate from "helpers/GetMessageValidate";
-import NotAuthApi from "api/NotAuthApi";
 const cx = classNames.bind(styles);
 const Auth = () => {
-  const { uuid } = useParams();
+  const { state } = useLocation();
+  console.log({state})
   const { loginUser, authState } = useContext(AuthContext);
   const [passwordShown, setPasswordShown] = useState(false);
-  const navigate = useNavigate();
   // Password toggle handler
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -135,7 +134,7 @@ const Auth = () => {
   const onSubmitRegister = async (data) => {
     setErrors();
     setLoading(true);
-    if (uuid) {
+    if (state?.uuid) {
       const { email_register, password_register, phone_register, username } =
         data;
       let dataRegister = {
@@ -143,7 +142,7 @@ const Auth = () => {
         telephone: phone_register,
         passWord: password_register,
         nickName: username,
-        uuid: uuid,
+        uuid: state?.uuid,
       };
       try {
         const response = await AuthApi.register(dataRegister);
@@ -171,25 +170,9 @@ const Auth = () => {
     }
     setLoading(false);
   };
-  const checkUser = async () => {
-    try {
-      const response = await NotAuthApi.checkUser(uuid);
-      if (response?.data?.status === 200) {
-      } else {
-        navigate("/");
-      }
-    } catch (e) {
-      navigate("/");
-    }
-  };
-  useEffect(() => {
-    checkUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  if (authState.isAuthenticated) {
-    return <Navigate to="/home" replace={true} />;
+  if (!state?.uuid) {
+    return <Navigate to="/" replace={true} />;
   }
-
   return (
     <>
       {authState.authLoading && <Loader />}

@@ -8,10 +8,17 @@ import Home from "pages/Home";
 
 import LoadSpash from "pages/LoadSpash/LoadSpash";
 import SelectGame from "pages/SelectGame";
+import Splash from "pages/Splash";
 
 const publicRoutes = [
+  {
+    path: '/:uuid',
+    component: Splash,
+    layout: null
+},
+  { path: `/auth`, component: Auth, layout: null },
   { path: `/*`, component: LoadSpash, layout: null },
-  { path: `/:uuid`, component: Auth, layout: null },
+
 ];
 const privateRoutes = [
   { path: `/home`, component: Home, layout: null },
