@@ -11,6 +11,15 @@ import { AuthContext } from "contexts/AuthContext";
 import ModalPauseGame from "components/Modals/ModalPauseGame";
 
 const cx = classNames.bind(style);
+
+const shuffleArray = (array) => {
+  const shuffledArray = [...array];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+};
 const IngameChallenge = () => {
   const playerRef = useRef(null);
   const [startGame, setStartGame] = useState(false);
@@ -19,15 +28,24 @@ const IngameChallenge = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [isOpenModalPauseGame, setIsOpenModalPauseGame] = useState(false);
 
-  const [questions,setQuestions] = useState([
-    { stt: 1, name: "Màu sắc đại diện cho anh và em là gì và tại sao" },
-    { stt: 2, name: "Đồ vật nào làm anh hoặc em nghĩ đến nhau" },
-    { stt: 3, name: "Ấn tượng đầu tiên và ấn tượng hiện tại?" },
-    { stt: 4, name: "Lý do yêu lúc ban đầu và lí do yêu ở hiện tại?" },
-  ]);
+  const [questions,setQuestions] = useState([]);
   useEffect(()=>{
+    
     if(authState?.user?.sexChallenge) {
-      setQuestions(authState?.user?.sexChallenge)
+      // setQuestions(authState?.user?.sexChallenge)
+
+    const evenQuestions = authState?.user?.sexChallenge.filter((_, index) => ((index + 1) % 2 !== 0));
+    const oddQuestions  = authState?.user?.sexChallenge.filter((_, index) => ((index + 1) % 2 === 0));
+
+    const shuffledEvenQuestions = shuffleArray(evenQuestions);
+    const shuffledOddQuestions = shuffleArray(oddQuestions);
+
+    const shuffledArray = [];
+    for (let i = 0; i < authState?.user?.sexChallenge?.length; i++) {
+      shuffledArray[i] = i % 2 === 0 ? shuffledEvenQuestions[i / 2] : shuffledOddQuestions[(i - 1) / 2];
+    }
+
+    setQuestions(shuffledArray);
     }
   },[authState])
   return (
@@ -73,7 +91,7 @@ const IngameChallenge = () => {
           <div className={cx("bg_wrap_content")}></div>
           <div className={cx("name")}>{activeQuestion % 2 === 0 ? infoUser.name_player1 || 'Người chơi 1' : infoUser.name_player2 || 'Người chơi 2'}</div>
           <div className={cx("content")}>
-            {questions[activeQuestion].name}
+            {questions[activeQuestion]?.name}
           </div>
         </div>
         <div className="d-flex align-items-center justify-content-around w-100">

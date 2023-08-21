@@ -41,7 +41,7 @@ const Home = () => {
     if (sex === "2") {
       return <img src={female} alt="" width={"57px"} height={"57px"} />;
     }
-    return <img src={different} alt="" width={"57px"} height={"57px"} />;
+    return <img src={different} alt="" width={"57px"} height={"67px"} />;
   };
   return (
     <div className={cx("wrapper")}>

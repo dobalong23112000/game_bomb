@@ -9,9 +9,17 @@ import FireBomb from "assets/images/fire_bomb.png";
 import { AuthContext } from "contexts/AuthContext";
 import ModalPauseGame from "components/Modals/ModalPauseGame";
 const cx = classNames.bind(style);
+const shuffleArray = (array) => {
+  const shuffledArray = [...array];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+};
 const Ingame = () => {
   function getRandomNumber() {
-    const numbers = [10, 20, 30];
+    const numbers = [30, 35, 40];
     const randomIndex = Math.floor(Math.random() * numbers.length);
     return numbers[randomIndex];
   }
@@ -21,15 +29,12 @@ const Ingame = () => {
   const { infoUser,authState } = useContext(AuthContext);
   const [activeQuestion, setActiveQuestion] = useState(0);
  
-  const [questions,setQuestions] = useState([
-    { stt: 1, name: "Màu sắc đại diện cho anh và em là gì và tại sao" },
-    { stt: 2, name: "Đồ vật nào làm anh hoặc em nghĩ đến nhau" },
-    { stt: 3, name: "Ấn tượng đầu tiên và ấn tượng hiện tại?" },
-    { stt: 4, name: "Lý do yêu lúc ban đầu và lí do yêu ở hiện tại?" },
-  ]);
+  const [questions,setQuestions] = useState([]);
+  console.log({infoUser})
   useEffect(()=>{
-    if(authState?.user?.sexChallenge) {
-      setQuestions(authState?.user?.sexChallenge)
+    if(authState?.user?.sexBomb) {
+      setQuestions(shuffleArray([...authState?.user?.sexBomb]));
+      // setQuestions(authState?.user?.sexBomb)
     }
   },[authState])
   const [isOpenModalPauseGame, setIsOpenModalPauseGame] = useState(false);

@@ -20,7 +20,6 @@ import GetMessageValidate from "helpers/GetMessageValidate";
 const cx = classNames.bind(styles);
 const Auth = () => {
   const { state } = useLocation();
-  console.log({state})
   const { loginUser, authState } = useContext(AuthContext);
   const [passwordShown, setPasswordShown] = useState(false);
   // Password toggle handler

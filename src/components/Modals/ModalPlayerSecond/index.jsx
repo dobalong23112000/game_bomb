@@ -37,7 +37,7 @@ const ModalPlayerSecond = ({ isOpenModal, setIsOpenModal }) => {
       value: "3",
       label: (
         <div>
-          <img src={different} alt="" width={"22px"} height={"22px"} />
+          <img src={different} alt="" width={"22px"} height={"30px"} />
           Khác
         </div>
       ),
