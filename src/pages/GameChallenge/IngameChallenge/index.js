@@ -9,6 +9,8 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import CountdownTimer from "components/CountdownTimer";
 import { AuthContext } from "contexts/AuthContext";
 import ModalPauseGame from "components/Modals/ModalPauseGame";
+import last_view from "assets/images/last_view.png";
+import 'animate.css';
 
 const cx = classNames.bind(style);
 
@@ -27,6 +29,7 @@ const IngameChallenge = () => {
   const { infoUser,authState } = useContext(AuthContext);
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [isOpenModalPauseGame, setIsOpenModalPauseGame] = useState(false);
+  const [lastView,setLastView] = useState(false)
 
   const [questions,setQuestions] = useState([]);
   useEffect(()=>{
@@ -69,8 +72,11 @@ const IngameChallenge = () => {
           </span>
         </div>
       </div>
+      <div className={`d-flex flex-column align-items-center animate__animated ${lastView ? 'animate__jackInTheBox d-block' : 'd-none' } `}>
+          <img src={last_view} alt="#" width={"90%"} height={"536px"}></img>
+        </div>
       <div
-        className="d-flex flex-column align-items-center"
+        className={`d-flex flex-column align-items-center ${lastView && 'd-none'}`}
         style={{ height: "600px" }}
       >
         <div className={cx("bomb")}>
@@ -99,7 +105,8 @@ const IngameChallenge = () => {
             className={cx("render_question")}
             onClick={() => {
               playerRef.current.play();
-              if (activeQuestion > questions.length - 2) {
+              if (activeQuestion > questions.length - 1) {
+                setLastView(true)
                 setActiveQuestion(0);
               } else {
                 setActiveQuestion(activeQuestion + 1);

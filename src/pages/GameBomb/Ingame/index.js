@@ -6,8 +6,11 @@ import logo_game_bomb from "assets/images/logo_game_bomb.png";
 import PauseIcon from "components/Icons/PauseIcon";
 import Bomb from "assets/images/bomb.png";
 import FireBomb from "assets/images/fire_bomb.png";
+import last_view from "assets/images/last_view.png";
+
 import { AuthContext } from "contexts/AuthContext";
 import ModalPauseGame from "components/Modals/ModalPauseGame";
+import 'animate.css';
 const cx = classNames.bind(style);
 const shuffleArray = (array) => {
   const shuffledArray = [...array];
@@ -23,26 +26,25 @@ const Ingame = () => {
     const randomIndex = Math.floor(Math.random() * numbers.length);
     return numbers[randomIndex];
   }
-  
+
   const [activeBomb, setActiveBomb] = useState(false);
   const [countdown, setCountdown] = useState(10);
-  const { infoUser,authState } = useContext(AuthContext);
+  const { infoUser, authState } = useContext(AuthContext);
   const [activeQuestion, setActiveQuestion] = useState(0);
- 
-  const [questions,setQuestions] = useState([]);
-  console.log({infoUser})
-  useEffect(()=>{
-    if(authState?.user?.sexBomb) {
+  const [lastView,setLastView] = useState(false)
+  const [questions, setQuestions] = useState([]);
+  useEffect(() => {
+    if (authState?.user?.sexBomb) {
       setQuestions(shuffleArray([...authState?.user?.sexBomb]));
       // setQuestions(authState?.user?.sexBomb)
     }
-  },[authState])
+  }, [authState]);
   const [isOpenModalPauseGame, setIsOpenModalPauseGame] = useState(false);
 
   const genNamePlaying = () => {
     return activeQuestion % 2 === 0
-      ? infoUser.name_player1 || 'Người chơi 1'
-      : infoUser.name_player2 || 'Người chơi 2';
+      ? infoUser.name_player1 || "Người chơi 1"
+      : infoUser.name_player2 || "Người chơi 2";
   };
   useEffect(() => {
     if (countdown > 0) {
@@ -59,28 +61,32 @@ const Ingame = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countdown]);
   return (
-    <div className={cx("wrapper")}>
-      <div className="d-flex justify-content-between">
-        <div className="d-flex justify-content-center">
-          <img
-            src={logo_game_bomb}
-            alt="logo_game"
-            height={"95px"}
-            width={"95px"}
-          />
+    <>
+      <div className={cx("wrapper")}>
+        <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-center">
+            <img
+              src={logo_game_bomb}
+              alt="logo_game"
+              height={"95px"}
+              width={"95px"}
+            />
+          </div>
+          <div className="d-flex justify-content-end  me-3 mt-4">
+            <span
+              onClick={() => {
+                setIsOpenModalPauseGame(true);
+              }}
+            >
+              <PauseIcon />
+            </span>
+          </div>
         </div>
-        <div className="d-flex justify-content-end  me-3 mt-4">
-          <span
-            onClick={() => {
-              setIsOpenModalPauseGame(true)
-            }}
-          >
-            <PauseIcon />
-          </span>
+        <div className={`d-flex flex-column align-items-center animate__animated ${lastView ? 'animate__jackInTheBox d-block' : 'd-none' } `}>
+          <img src={last_view} alt="#" width={"90%"} height={"536px"}></img>
         </div>
-      </div>
-      <div
-        className="d-flex flex-column align-items-center"
+        <div
+        className={`d-flex flex-column align-items-center ${lastView && 'd-none'}`}
         style={{ height: "536px" }}
       >
         <div className={cx("bomb")}>
@@ -116,8 +122,9 @@ const Ingame = () => {
           <div
             className={cx("render_question")}
             onClick={() => {
-              if (activeQuestion > questions.length - 2) {
-                setActiveQuestion(0);
+              if (activeQuestion > questions.length - 1) {
+                setLastView(true)
+                setActiveQuestion(0)
               } else {
                 setActiveQuestion(activeQuestion + 1);
               }
@@ -131,12 +138,16 @@ const Ingame = () => {
           </div>
         </div>
       </div>
-      <div className={cx("logo_liam")}>
-        <img src={logo_liam} alt="logo_liam" height={"71px"} width={"71px"} />
+        <div className={cx("logo_liam")}>
+          <img src={logo_liam} alt="logo_liam" height={"71px"} width={"71px"} />
+        </div>
+        <ModalPauseGame
+          isOpenModal={isOpenModalPauseGame}
+          setIsOpenModal={setIsOpenModalPauseGame}
+          linkRedirect={"/game-bomb"}
+        />
       </div>
-      <ModalPauseGame isOpenModal={isOpenModalPauseGame} setIsOpenModal={setIsOpenModalPauseGame} linkRedirect={'/game-bomb'}/>
-
-    </div>
+    </>
   );
 };
 
