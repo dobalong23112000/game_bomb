@@ -11,6 +11,8 @@ import CountdownTimer from "components/CountdownTimer";
 import { AuthContext } from "contexts/AuthContext";
 import ModalPauseGame from "components/Modals/ModalPauseGame";
 import last_view from "assets/images/last_view.png";
+
+import { IoVolumeHigh, IoVolumeMute } from "react-icons/io5";
 import 'animate.css';
 
 const cx = classNames.bind(style);
@@ -32,7 +34,7 @@ const IngameChallenge = () => {
   const [isOpenModalPauseGame, setIsOpenModalPauseGame] = useState(false);
   const [lastView,setLastView] = useState(false)
   const audioRef = useRef(null)
-
+  const  [isMute, setIsMute] =useState(false)
   const [questions,setQuestions] = useState([]);
   useEffect(()=>{
     
@@ -51,6 +53,7 @@ const IngameChallenge = () => {
     }
 
     setQuestions(shuffledArray);
+    setCountdown(shuffledArray[0]?.time ?? 80)
     }
   },[authState])
   useEffect(()=>{
@@ -71,6 +74,15 @@ const IngameChallenge = () => {
           />
         </div>
         <div className="d-flex justify-content-end  me-3 mt-4">
+        <span
+            onClick={() => {
+              setIsMute(!isMute)
+            }}
+            className="me-4"
+          >
+            {!isMute && <IoVolumeHigh size={'30px'} color="rgb(192, 72, 73)"/>}
+           {isMute && <IoVolumeMute size={'30px'} color="rgb(192, 72, 73)"/>} 
+          </span>
           <span
             onClick={() => {
               setIsOpenModalPauseGame(true)
@@ -116,8 +128,12 @@ const IngameChallenge = () => {
               if (activeQuestion > questions.length - 1) {
                 setLastView(true)
                 setActiveQuestion(0);
+                setCountdown(questions[0]?.time ?? 80)
+
               } else {
                 setActiveQuestion(activeQuestion + 1);
+                setCountdown(questions[activeQuestion + 1]?.time ?? 80)
+
               }
             }}
           >
@@ -136,7 +152,8 @@ const IngameChallenge = () => {
               setStartGame(!startGame);
               playerRef.current.play();
               if(countdown === 0) {
-                setCountdown(80)
+                setCountdown(questions[activeQuestion]?.time ?? 80)
+                // setCountdown(80)
               }
             }}
           >
@@ -148,7 +165,7 @@ const IngameChallenge = () => {
         <img src={logo_liam} alt="logo_liam" height={"71px"} width={"71px"} />
       </div>
       <ModalPauseGame isOpenModal={isOpenModalPauseGame} setIsOpenModal={setIsOpenModalPauseGame} linkRedirect={'/game-challenge'}/>
-      <audio ref={audioRef}>
+      <audio ref={audioRef} muted={isMute}>
         <source src={audioFile} type="audio/mpeg" />
       </audio>
     </div>

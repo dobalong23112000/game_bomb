@@ -10,6 +10,8 @@ import last_view from "assets/images/last_view.png";
 import audioFile from 'assets/audio/tieng_bomb.mp3';
 import { AuthContext } from "contexts/AuthContext";
 import ModalPauseGame from "components/Modals/ModalPauseGame";
+import { IoVolumeHigh, IoVolumeMute } from "react-icons/io5";
+
 import 'animate.css';
 const cx = classNames.bind(style);
 const shuffleArray = (array) => {
@@ -33,6 +35,7 @@ const Ingame = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [lastView,setLastView] = useState(false)
   const [questions, setQuestions] = useState([]);
+  const  [isMute, setIsMute] =useState(false)
   useEffect(() => {
     if (authState?.user?.sexBomb) {
       setQuestions(shuffleArray([...authState?.user?.sexBomb]));
@@ -52,8 +55,8 @@ const Ingame = () => {
         setCountdown((prevCountdown) => prevCountdown - 1);
       }, 1000);
       if (countdown === 1 && !lastView) {
-        setActiveBomb(true);
         audioRef.current.play();
+        setActiveBomb(true);
       }
       return () => {
         clearInterval(interval);
@@ -74,6 +77,15 @@ const Ingame = () => {
             />
           </div>
           <div className="d-flex justify-content-end  me-3 mt-4">
+          <span
+            onClick={() => {
+              setIsMute(!isMute)
+            }}
+            className="me-4"
+          >
+            {!isMute && <IoVolumeHigh size={'30px'} color="rgb(192, 72, 73)"/>}
+           {isMute && <IoVolumeMute size={'30px'} color="rgb(192, 72, 73)"/>} 
+          </span>
             <span
               onClick={() => {
                 setIsOpenModalPauseGame(true);
@@ -152,7 +164,7 @@ const Ingame = () => {
         />
       </div>
 
-      <audio ref={audioRef}>
+      <audio ref={audioRef} muted={isMute}>
         <source src={audioFile} type="audio/mpeg" />
       </audio>
     </>
