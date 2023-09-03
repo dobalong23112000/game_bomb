@@ -4,6 +4,7 @@ import style from "./style.module.scss";
 import logo_liam from "assets/images/logo_liam.png";
 import logo_game_challenge from "assets/images/logo_game_challenge.png";
 import PauseIcon from "components/Icons/PauseIcon";
+import audioFile from 'assets/audio/tieng_challenge.mp3';
 
 import { Player } from "@lottiefiles/react-lottie-player";
 import CountdownTimer from "components/CountdownTimer";
@@ -30,6 +31,7 @@ const IngameChallenge = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [isOpenModalPauseGame, setIsOpenModalPauseGame] = useState(false);
   const [lastView,setLastView] = useState(false)
+  const audioRef = useRef(null)
 
   const [questions,setQuestions] = useState([]);
   useEffect(()=>{
@@ -51,6 +53,12 @@ const IngameChallenge = () => {
     setQuestions(shuffledArray);
     }
   },[authState])
+  useEffect(()=>{
+    if(countdown === 0 && !lastView) {
+      playerRef.current.play();
+      audioRef.current.play()
+    }
+  },[countdown,lastView])
   return (
     <div className={cx("wrapper")}>
       <div className="d-flex justify-content-between">
@@ -140,6 +148,9 @@ const IngameChallenge = () => {
         <img src={logo_liam} alt="logo_liam" height={"71px"} width={"71px"} />
       </div>
       <ModalPauseGame isOpenModal={isOpenModalPauseGame} setIsOpenModal={setIsOpenModalPauseGame} linkRedirect={'/game-challenge'}/>
+      <audio ref={audioRef}>
+        <source src={audioFile} type="audio/mpeg" />
+      </audio>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
 import style from "./style.module.scss";
 import logo_liam from "assets/images/logo_liam.png";
@@ -7,7 +7,7 @@ import PauseIcon from "components/Icons/PauseIcon";
 import Bomb from "assets/images/bomb.png";
 import FireBomb from "assets/images/fire_bomb.png";
 import last_view from "assets/images/last_view.png";
-
+import audioFile from 'assets/audio/tieng_bomb.mp3';
 import { AuthContext } from "contexts/AuthContext";
 import ModalPauseGame from "components/Modals/ModalPauseGame";
 import 'animate.css';
@@ -26,7 +26,7 @@ const Ingame = () => {
     const randomIndex = Math.floor(Math.random() * numbers.length);
     return numbers[randomIndex];
   }
-
+  const audioRef = useRef(null)
   const [activeBomb, setActiveBomb] = useState(false);
   const [countdown, setCountdown] = useState(10);
   const { infoUser, authState } = useContext(AuthContext);
@@ -51,8 +51,9 @@ const Ingame = () => {
       const interval = setInterval(() => {
         setCountdown((prevCountdown) => prevCountdown - 1);
       }, 1000);
-      if (countdown === 1) {
+      if (countdown === 1 && !lastView) {
         setActiveBomb(true);
+        audioRef.current.play();
       }
       return () => {
         clearInterval(interval);
@@ -125,6 +126,7 @@ const Ingame = () => {
               if (activeQuestion > questions.length - 1) {
                 setLastView(true)
                 setActiveQuestion(0)
+                setCountdown(getRandomNumber())
               } else {
                 setActiveQuestion(activeQuestion + 1);
               }
@@ -134,7 +136,9 @@ const Ingame = () => {
               }
             }}
           >
-            {activeBomb ? "Đặt lại bomb" : "Next"}
+            {!activeBomb &&  "Next"}
+            {activeBomb &&  <div className="mt-5">Đặt lại bomb!</div>}
+            
           </div>
         </div>
       </div>
@@ -147,6 +151,10 @@ const Ingame = () => {
           linkRedirect={"/game-bomb"}
         />
       </div>
+
+      <audio ref={audioRef}>
+        <source src={audioFile} type="audio/mpeg" />
+      </audio>
     </>
   );
 };
