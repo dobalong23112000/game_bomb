@@ -83,8 +83,8 @@ const Ingame = () => {
             }}
             className="me-4"
           >
-            {!isMute && <IoVolumeHigh size={'30px'} color="rgb(192, 72, 73)"/>}
-           {isMute && <IoVolumeMute size={'30px'} color="rgb(192, 72, 73)"/>} 
+            {!isMute && <IoVolumeHigh size={'35px'} color="rgb(192, 72, 73)"/>}
+           {isMute && <IoVolumeMute size={'35px'} color="rgb(192, 72, 73)"/>} 
           </span>
             <span
               onClick={() => {
